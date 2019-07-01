@@ -8,7 +8,6 @@ const indexRoutes = require('./routes/index');
 const addRoutes = require('./routes/add');
 const editRoutes = require('./routes/edit');
 const deleteRoutes = require('./routes/delete');
-const errorRoutes = require('./routes/404');
 
 var app = express();
 
@@ -26,7 +25,6 @@ app.use('/', indexRoutes);
 app.use('/add', addRoutes);
 app.use('/edit', editRoutes);
 app.use('/delete', deleteRoutes);
-app.use('*', errorRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
