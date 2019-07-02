@@ -96,7 +96,6 @@ exports.getIndex = (req, res) => {
     const pages = Math.ceil(total / perPage);
     const offset = (page - 1) * perPage;
     const urlTemp = req.url == '/' ? '/?page=1' : req.url;
-
     let url = '';
     
     for (let i = 0; i < urlTemp.length; i++) {
