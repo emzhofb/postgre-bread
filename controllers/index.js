@@ -95,6 +95,7 @@ exports.getIndex = (req, res) => {
     const pages = Math.ceil(total / perPage);
     const offset = (page - 1) * perPage;
     const url = req.url == '/' ? '/?page=1' : req.url;
+    console.log(url)
 
     sql = `SELECT * FROM public.datatypes`;
 
@@ -144,7 +145,7 @@ exports.getIndex = (req, res) => {
         data: rows.rows,
         query: queries,
         current: page,
-        pages: pages,
+        pages,
         url
       });
     });
