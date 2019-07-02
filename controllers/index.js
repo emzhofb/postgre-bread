@@ -1,11 +1,31 @@
 const pool = require('../models/data');
 
 exports.getIndex = (req, res) => {
-  const sql = `SELECT * FROM public.datatypes ORDER BY id ASC`;
+  let sql = `SELECT count(*) FROM public.datatypes`;
 
-  pool.query(sql, [], (err, rows) => {
-    if (err) console.log(err);
+  const page = Number(req.query.page) || 1;
+  const perPage = 3;
+  const queries = req.query;
 
-    res.render('index', { data: rows.rows });
+  pool.query(sql, (err, count) => {
+    const total = count.rows[0].count;
+    const pages = Math.ceil(total / perPage);
+    const offset = (page - 1) * perPage;
+    const url = req.url == '/' ? '/?page=1' : req.url;
+
+    sql = `SELECT * FROM public.datatypes ORDER BY id ASC`;
+    sql += ` LIMIT ${perPage} OFFSET ${offset}`;
+
+    pool.query(sql, [], (err, rows) => {
+      if (err) console.log(err);
+
+      res.render('index', { 
+        data: rows.rows,
+        query: queries,
+        current: page,
+        pages: pages,
+        url
+      });
+    });
   });
 };
