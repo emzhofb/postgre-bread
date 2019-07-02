@@ -10,7 +10,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <title>sqlite3-bread</title>
+    <title>postgre-bread</title>
   </head>
   <body>
     <div class="container" style="padding: 20px">
@@ -232,7 +232,7 @@
               </li>
             <% } else { %>
               <li class="page-item">
-                <a class="page-link" href="/?page=1" >First</a>
+                <a class="page-link" href="<%= url.replace(url, `?page=1&${url}`) %>" >First</a>
               </li>
             <% } %> 
             <% let i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
@@ -244,13 +244,13 @@
             <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
               <% if (i == current) { %>
                 <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="/?page=<%= i %>" name="page"
+                  <a class="page-link" href="<%= url.replace(url, `?page=${i}&${url}`) %>" name="page"
                     ><%= i %><span class="sr-only">(current)</span></a
                   >
                 </li>
               <% } else { %>
                 <li class="page-item" aria-current="page">
-                  <a class="page-link" href="/?page=<%= i %>" name="page"
+                  <a class="page-link" href="<%= url.replace(url, `?page=${i}&${url}`) %>" name="page"
                     ><%= i %><span class="sr-only">(current)</span></a
                   >
                 </li>
@@ -267,7 +267,7 @@
               </li>
             <% } else { %>
               <li class="page-item">
-                <a class="page-link" href="/?page=<%= pages %>">Last</a>
+                <a class="page-link" href="<%= url.replace(url, `?page=${pages}&${url}`) %>">Last</a>
               </li>
             <% } %>
           </ul>

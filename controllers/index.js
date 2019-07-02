@@ -91,10 +91,19 @@ exports.getIndex = (req, res) => {
   const queries = req.query;
 
   pool.query(sql, (err, count) => {
+    if (err) console.log(err);
     const total = count.rows[0].count;
     const pages = Math.ceil(total / perPage);
     const offset = (page - 1) * perPage;
-    const url = req.url == '/' ? '/?page=1' : req.url;
+    const urlTemp = req.url == '/' ? '/?page=1' : req.url;
+    let url = '';
+    
+    for (let i = 0; i < urlTemp.length; i++) {
+      if (urlTemp[i] === '/') {
+        i++;
+      }
+      url += urlTemp[i];
+    }
 
     sql = `SELECT * FROM public.datatypes`;
 
@@ -144,7 +153,7 @@ exports.getIndex = (req, res) => {
         data: rows.rows,
         query: queries,
         current: page,
-        pages: pages,
+        pages,
         url
       });
     });
