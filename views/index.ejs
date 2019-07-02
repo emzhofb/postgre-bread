@@ -232,7 +232,7 @@
               </li>
             <% } else { %>
               <li class="page-item">
-                <a class="page-link" href="/page/1" >First</a>
+                <a class="page-link" href="/?page=1" >First</a>
               </li>
             <% } %> 
             <% let i = (Number(current) > 3 ? Number(current) - 2 : 1) %>
@@ -244,13 +244,13 @@
             <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
               <% if (i == current) { %>
                 <li class="page-item active" aria-current="page">
-                  <a class="page-link" href="/page/<%= i %>" name="page"
+                  <a class="page-link" href="/?page=<%= i %>" name="page"
                     ><%= i %><span class="sr-only">(current)</span></a
                   >
                 </li>
               <% } else { %>
                 <li class="page-item" aria-current="page">
-                  <a class="page-link" href="/page/<%= i %>" name="page"
+                  <a class="page-link" href="/?page=<%= i %>" name="page"
                     ><%= i %><span class="sr-only">(current)</span></a
                   >
                 </li>
@@ -267,7 +267,7 @@
               </li>
             <% } else { %>
               <li class="page-item">
-                <a class="page-link" href="/page/<%= pages %>">Last</a>
+                <a class="page-link" href="/?page=<%= pages %>">Last</a>
               </li>
             <% } %>
           </ul>
