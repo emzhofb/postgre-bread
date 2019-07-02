@@ -1,9 +1,10 @@
-const sqlite3 = require('sqlite3').verbose();
+const { Pool, Client } = require('pg');
 
-let db = new sqlite3.Database('bread.db', err => {
-  if (err) console.error(err.message);
+const connectionString =
+  'postgresql://postgres:12345@localhost/bread.db';
 
-  console.log('Connected to sqlite3 bread.db');
+const pool = new Pool({
+  connectionString: connectionString
 });
 
-module.exports = db;
+module.exports = pool;

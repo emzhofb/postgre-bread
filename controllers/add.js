@@ -1,4 +1,4 @@
-const db = require('../models/data');
+const pool = require('../models/data');
 
 exports.getAdd = (req, res) => {
   res.render('add');
@@ -6,8 +6,8 @@ exports.getAdd = (req, res) => {
 
 exports.postAdd = (req, res) => {
   const str = req.body.string || 'kosong';
-  const int = req.body.integer || 'kosong';
-  const flo = req.body.float || 'kosong';
+  const int = req.body.integer || 0;
+  const flo = req.body.float || 0;
   const dte = req.body.date || 'kosong';
   let bol = req.body.boolean;
   let displayDate;
@@ -21,14 +21,12 @@ exports.postAdd = (req, res) => {
     displayDate = 'kosong';
   }
 
-  const data = [str, int, flo, dte, bol, displayDate];
+  const sql = `INSERT INTO public.datatypes(
+    string, "integer", "float", date, "boolean", "displayDate")
+    VALUES ('${str}', ${parseInt(int)}, ${parseFloat(flo)}, '${dte}', '${bol}', '${displayDate}')`;
 
-  const sql = `INSERT INTO 
-    datatypes ( string, integer, float, date, boolean, displayDate ) 
-    VALUES ( ?, ?, ?, ?, ?, ? )`;
-
-  db.run(sql, data, err => {
-    if (err) console.log(err);
+  pool.query(sql, (err, rows) => {
+    if (err) console.log(err.stack);
 
     res.redirect('/');
   });

@@ -1,15 +1,13 @@
-const db = require('../models/data');
+const pool = require('../models/data');
 
 exports.getEdit = (req, res) => {
   const id = req.params.id;
-  const sql = `SELECT *
-              FROM datatypes
-              WHERE id  = ?`;
+  const sql = `SELECT * FROM public.datatypes WHERE id = ${id}`;
 
-  db.get(sql, [id], (err, row) => {
+  pool.query(sql, (err, row) => {
     if (err) console.log(err);
 
-    res.render('edit', { data: row });
+    res.render('edit', { data: row.rows[0] });
   });
 };
 
@@ -31,16 +29,16 @@ exports.postEdit = (req, res) => {
     displayDate = 'kosong';
   }
 
-  const sql = `UPDATE datatypes
+  const sql = `UPDATE public.datatypes
     SET string = '${str}', 
-        integer = ${int}, 
-        float = ${flo}, 
+        "integer" = ${int}, 
+        "float" = ${flo}, 
         date = '${dte}', 
-        boolean = '${bol}', 
-        displayDate = '${displayDate}'
+        "boolean" = '${bol}', 
+        "displayDate" = '${displayDate}'
     WHERE id = ${id}`;
 
-  db.run(sql, err => {
+  pool.query(sql, err => {
     if (err) console.log(err);
 
     res.redirect('/');
