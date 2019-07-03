@@ -100,6 +100,7 @@ exports.getIndex = (req, res) => {
     
     for (let i = 0; i < urlTemp.length; i++) {
       if (urlTemp[i] === '/') {
+        url = '';
         i++;
       }
       url += urlTemp[i];
