@@ -95,17 +95,8 @@ exports.getIndex = (req, res) => {
     const total = count.rows[0].count;
     const pages = Math.ceil(total / perPage);
     const offset = (page - 1) * perPage;
-    const urlTemp = req.url == '/' ? '/?page=1' : req.url;
-    let url = '';
+    const url = req.url == '/' ? '/?page=1' : req.url;
     
-    for (let i = 0; i < urlTemp.length; i++) {
-      if (urlTemp[i] === '/') {
-        url = '';
-        i++;
-      }
-      url += urlTemp[i];
-    }
-
     sql = `SELECT * FROM public.datatypes`;
 
     if (filter.length > 0) {
